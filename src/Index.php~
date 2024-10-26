@@ -8,7 +8,7 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 
-class SocketMap implements MessageComponentInterface
+class Index implements MessageComponentInterface
 {
 
     protected $clientes;
@@ -46,7 +46,7 @@ class SocketMap implements MessageComponentInterface
 $server = IoServer::factory(
     new HttpServer(
         new WsServer(
-            new SocketMap()
+            new Index()
         )
     ),
     8080
