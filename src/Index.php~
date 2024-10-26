@@ -1,8 +1,13 @@
 <?php
 
 namespace MyMap;
+require __DIR__ . '/../vendor/autoload.php';
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
+
 class SocketMap implements MessageComponentInterface
 {
 
@@ -37,3 +42,13 @@ class SocketMap implements MessageComponentInterface
         echo "{$from->resourceId} dice => {$msg}\n";
     }
 }
+
+$server = IoServer::factory(
+    new HttpServer(
+        new WsServer(
+            new SocketMap()
+        )
+    ),
+    8080
+);
+$server->run();
