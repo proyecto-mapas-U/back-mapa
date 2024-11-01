@@ -75,23 +75,15 @@ try {
 
     // Se crea la instancia del servidor WebSocket
     $websocket = new WsServer(new index());
-
-    $websocket->enableKeepAlive($loop, 10);
-
-    $server = new IoServer(
-        new HttpServer($websocket),
-        $secureSocket,
-        $loop
-    );
-
-    echo "Servidor Socket Seguro Iniciado en el puerto 9000\n";
-
-    $loop->addTimer(0.001, function () {
-        echo "Loop de eventos iniciado\n";
-    });
-
-    $server->run();
-
-} catch (\Exception $e) {
-    echo "Error al iniciar el servidor: {$e->getMessage()}\n";
 }
+$websocket = new WsServer(new index());
+$websocket->enableKeepAlive($loop);
+
+$server = new IoServer(
+    new HttpServer($websocket),
+    $secureSocket,
+    $loop
+);
+
+echo "Servidor Socket Seguro Iniciado en el puerto 9000\n";
+$server->run();
