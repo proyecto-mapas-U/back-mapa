@@ -47,51 +47,41 @@ class index implements MessageComponentInterface
     }
 }
 
-// Se crea loop de eventos
-$loop = Factory::create();
-
-// Se crea el servidor
-$socket = new Server('0.0.0.0:9000', $loop);
-
-$context = array(
-    'local_cert' => '/etc/ssl/websocket/server.crt', // Ruta del certificado
-    'local_pk' => '/etc/ssl/websocket/server.key', // Ruta de la llave privada
-    'verify_peer' => false,
-    'verify_peer_name' => false,
-    'allow_self_signed' => true, // Permite el uso de certificados autofirmados
-    'security_level' => 1,
-    'disable_compression' => false,
-    'SNI_enabled' => false,
-    'ciphers' => 'ALL:@SSLV3:TLSv1+HIGH:!SSLv2:!MEDIUM:!LOW:!EXP:!ADH:!aNULL:!eNULL:!NULL', // Lista más permisiva de cifrados
+$server = IoServer::factory(
+    new HttpServer(
+        new WsServer(
+            new index()
+        )
+    ),
+    9000,
+    '0.0.0.0'
 );
-try {
-    // Se crea el servidor seguro con las opciones de contexto
-    $socket = new Server('0.0.0.0:9000', $loop, array(
-        'tls' => $context
-    ));
+$server->run();
 
-    // Se crea el servidor seguro con las opciones de contexto
-    $secureSocket = new SecureServer($socket, $loop, $context);
 
-    // Se crea la instancia del servidor WebSocket
-    $websocket = new WsServer(new index());
+//$context = [
+//    'local_cert' => '/etc/ssl/websocket/server.crt',
+//    'local_pk' => '/etc/ssl/websocket/server.key',
+//    'allow_self_signed' => true,
+//    'verify_peer' => false,
+//];
+//
+//// Se crea loop de eventos
+//$loop = Factory::create();
+//
+//// Se crea el servidor
+//$socket = new Server('0.0.0.0:9001', $loop);
+//$secureSocket = new SecureServer($socket, $loop, $context);
+//$websocket = new WsServer(new index());
+//$websocket->enableKeepAlive($loop, 10);
+//
+//$server = new IoServer(
+//    new HttpServer($websocket),
+//    $secureSocket,
+//    $loop
+//);
 
-    $websocket->enableKeepAlive($loop, 10);
+echo "Servidor Socket Seguro Iniciado...";
 
-    $server = new IoServer(
-        new HttpServer($websocket),
-        $secureSocket,
-        $loop
-    );
+$server->run();
 
-    echo "Servidor Socket Seguro Iniciado en el puerto 9000\n";
-
-    $loop->addTimer(0.001, function () {
-        echo "Loop de eventos iniciado\n";
-    });
-
-    $server->run();
-
-} catch (\Exception $e) {
-    echo "Error al iniciar el servidor: {$e->getMessage()}\n";
-}
