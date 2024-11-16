@@ -6,6 +6,9 @@
     },
     "require": {
         "cboden/ratchet": "^0.4.4",
-        "react/socket": "^v1.9.0"
+        "react/socket": "^v1.9.0",
+      "ext-json": "*",
+      "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
