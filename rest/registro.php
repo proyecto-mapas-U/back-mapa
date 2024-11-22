@@ -21,7 +21,7 @@ if ($db) {
 
     if ($usuario->registro($db)) {
         http_response_code(200);
-        echo json_encode(array("message" => "Logging in."));
+        echo json_encode(array("message" => "Registrado correctamente..."));
     } else {
 
         http_response_code(401);
