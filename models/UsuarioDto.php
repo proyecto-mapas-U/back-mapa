@@ -2,7 +2,7 @@
 
 namespace models;
 
-class Usuario
+class UsuarioDto
 {
 private $nombre;
 private $numero;

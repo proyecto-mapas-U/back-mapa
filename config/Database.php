@@ -24,7 +24,6 @@ class Database
     public function getConnection()
     {
         try {
-            echo $this->host . " " . $this->user . " " . $this->pass . " " . $this->db;
             $conn = new \PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass);
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return $conn;
