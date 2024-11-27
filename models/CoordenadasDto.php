@@ -4,56 +4,56 @@ namespace models;
 
 class CoordenadasDto
 {
-    private $id_usuario;
-    private $latitude;
-    private $longitude;
+    private int $idUsuario;
+    private string $latitud;
+    private string $longitud;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getLatitude()
+    public function getLatitud(): string
     {
-        return $this->latitude;
+        return $this->latitud;
     }
 
     /**
-     * @param mixed $latitude
+     * @param mixed $latitud
      */
-    public function setLatitude($latitude)
+    public function setLatitud($latitud)
     {
-        $this->latitude = $latitude;
+        $this->latitud = $latitud;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getLongitude()
+    public function getLongitud(): string
     {
-        return $this->longitude;
+        return $this->longitud;
     }
 
     /**
-     * @param mixed $longitude
+     * @param mixed $longitud
      */
-    public function setLongitude($longitude)
+    public function setLongitud($longitud)
     {
-        $this->longitude = $longitude;
+        $this->longitud = $longitud;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getIdUsuario()
+    public function getIdUsuario(): int
     {
-        return $this->id_usuario;
+        return $this->idUsuario;
     }
 
     /**
-     * @param mixed $id_usuario
+     * @param mixed $idUsuario
      */
-    public function setIdUsuario($id_usuario)
+    public function setIdUsuario($idUsuario)
     {
-        $this->id_usuario = $id_usuario;
+        $this->idUsuario = $idUsuario;
     }
 
 
