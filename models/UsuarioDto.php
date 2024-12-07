@@ -84,6 +84,13 @@ class UsuarioDto
         return $stmt->fetchColumn();
     }
 
+    /**
+     * Función encargada de buscar id de un usuario por número para verificar si
+     * ya está registrado en el sistema
+     *
+     * @param $db
+     * @return int id del usuario
+     */
     public function buscarId($db): int
     {
         $stmt = $db->prepare("SELECT id FROM usuarios WHERE numero_contacto = :numero");

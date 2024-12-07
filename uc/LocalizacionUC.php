@@ -51,9 +51,15 @@ class LocalizacionUC
     {
         $stmt = $this->bd->prepare("SELECT COUNT(c.id_usuario) FROM coordenadas AS c WHERE c.id_usuario = :id");
         $stmt->execute(['id' => $id_usuario]);
-        return $stmt->fetchColumn();
+        return (int) $stmt->fetchColumn();
     }
 
+    /**
+     * Función encargada de actualizar las coordenadas del usuario
+     *
+     * @param CoordenadasDto $coordenadasDto
+     * @return bool si las coordenadas fueron actualizadas correctamente o no
+     */
     public function actualizarCoordenadas(CoordenadasDto $coordenadasDto): bool
     {
         $stmt = $this->bd->prepare("UPDATE coordenadas SET latitud = :lat, longitud = :long WHERE id_usuario = :id");
